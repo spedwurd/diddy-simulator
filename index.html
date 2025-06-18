@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>diddy simulator</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1>diddy simulator</h1>
-        <h2>didyd didyd idy dd idyd</h2>
-        <h3>baby oil: <span id="baby_oil">0</span></h3>
-        <button onclick="getOil()">get baby oil</button>
-        <button onclick="oilGrabber()">oil grabber</button>
-    </body>
-    <div id="baby_oils">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="description" content="Jizdys second coming. diddy jizzed in my mouth">
+  <title>Diddy Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <script src="script.js" defer></script>
+</head>
 
+<nav id="nav-jizdy">Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes</nav>
+<body>
+    <div id="column-one">
+      <h1>Diddy.<br>Simulator</h1>
+      <img id="diddy" src="assets/diddy.jpeg" alt="Diddy">
+      <button id="oil_button" onclick="getOil()">Baby Oil <span id="oil-per-click">(+1)</span></button>
+      <div id="stats">
+        <h2 class="header2 ">Stats</h2>
+        <p>Oil per click: <span class="red" id="opc-value">1</span></p>
+        <p>Oil grabbers: <span class="red" id="grabber-count">0</span></p>
+        <p>Diddy parties: <span class="red" id="party-count">0</span></p>
+
+
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <div id="column-two">
+    <h1 class="italic"><span class="unitalic red" id="oil">0</span> oil.</h1>
+      <div id="shop">
+        <button class="shop-button" onclick="buyGrabber()">Buy oil grabber <span id="grabber-cost">(-10 oil)</span></button>
+        <button class="shop-button" onclick="upgradeClicks()">Upgrade oil clicks <span id="upgrade-clicks-cost">(-50 oil)</span></button>
+        <button class="shop-button" onclick="hostParty()">Host a party <span id="party-cost">(-100 oil)</span></button>
+      </div>
+    </div>
+
+</body>
 </html>
