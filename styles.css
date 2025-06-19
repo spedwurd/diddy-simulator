@@ -1,3 +1,22 @@
+@font-face {
+    font-family: 'Recoleta';
+    src: url('/assets/recoleta-font.otf');
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+* {
+    font-family: 'Recoleta';
+    cursor: url('/assets/cursor.png'), auto;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -72,4 +91,18 @@ h2 {
 button:hover {
     background-color: #e0e0e0;
     transition: 0.5s;
+}
+
+.vertical-line {
+    border-left: 1px solid black;
+    height: 100%;
+    position: absolute;
+    left: 48%;
+    top: 0;
+}
+
+.overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
 }
