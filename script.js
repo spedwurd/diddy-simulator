@@ -2,13 +2,19 @@ let baby_oil = 0;
 let oil_grabber = 0;
 let grabber_rate = 1;
 let party = 0;
-let oil_per_click = 1;
-let grabber_cost = 10;
-let upgrade_cost = 50;
-let party_cost = 100;
+let oil_per_click = 1000;
+let freaky_cost = 10;
+let oiling_cost = 50;
+let mango_cost = 100;
+let illegal_cost = 500;
 let countdown = 5;
-document.getElementById('nav-jizdy').innerText = `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}  `;
 
+let items = {freaky: {cost: 10, amount: 0, desc: 'Boost clicks.'}, 
+oiling: {cost: 50, amount: 0, desc: 'Automatic oil.'}, 
+mango: {cost: 100, amount: 0, desc: 'Faster oiling.'}, 
+illegal: {cost: 500, amount: 0, desc: 'Idk drugs'}};
+
+document.getElementById('nav-jizdy').innerText =  `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
 
 function playAudio() {
     let audio = new Audio("/assets/button.mp3");
@@ -16,12 +22,13 @@ function playAudio() {
 }
 
 function updateOil() {
-    document.getElementById('oil').innerText = baby_oil;
+    oil_count = document.getElementById('oil');
+    oil_count.innerText = baby_oil;
+    Object.assign(oil_count.style, {color: 'green'});
+    setTimeout(() => {Object.assign(oil_count.style, {color: 'red'});}, 100);
     new_oil = document.createElement('img')
-    new_oil.setAttribute('src', '/assets/baby-oil.png'), Object.assign(new_oil.style, { height: '5vh', width: '5vw', position: 'absolute', zIndex: '-1000', animation: 'fadeIn 1s'});
-    new_oil.style.left = `${Math.floor(Math.random() * 100)}%`
-    new_oil.style.top = `${Math.floor(Math.random() * 100)}%`
-    document.getElementById('column-two').appendChild(new_oil)
+    new_oil.setAttribute('src', '/assets/baby-oil.png'), Object.assign(new_oil.style, { height: '5vh', width: '5vw', position: 'absolute', zIndex: '-1000', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'});
+    document.getElementById('oil-block').appendChild(new_oil)
 }
 
 async function getOil() {
@@ -29,6 +36,19 @@ async function getOil() {
     console.log('hi')
     baby_oil += oil_per_click;
     updateOil();
+}
+
+
+function buyItem(item) {
+    console.log(items[item]['cost']);
+    if (items[item]['cost'] <= baby_oil) {
+        baby_oil -= items[item]['cost'];
+        items[item]['cost'] = Math.floor(items[item]['cost'] * 1.1);
+        items[item]['amount'] += 1;
+        document.getElementById(`${item}-info`).innerText = `${items[item]['desc']} ${items[item]['cost']} oil.`;
+        document.getElementById(`${item}-count`).innerText = `${items[item]['amount']}x`;
+        updateOil();
+    }
 }
 
 function upgradeClicks() {
@@ -69,12 +89,22 @@ function hostParty() {
     }
 }
 
+function goldenOil(ts) {
+    baby_oil *= 2;
+    updateOil();
+    ts.remove();
+}
+
+function createGoldenOil() {
+    new_golden_oil = document.createElement('img');
+    new_golden_oil.setAttribute('src', '/assets/golden-oil.png'), new_golden_oil.setAttribute('onclick', 'goldenOil(this)'), Object.assign(new_golden_oil.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'})
+   // document.getElementById('oil-block').appendChild(new_golden_oil);
+}
+
 
 setInterval(() => {
     if (oil_grabber > 0) {
         baby_oil += grabber_rate * oil_grabber;
-        console.log(grabber_rate);
-        console.log(oil_grabber);
         for (let i = 0; i < oil_grabber*grabber_rate; i++) {
             updateOil();
         }
@@ -84,7 +114,15 @@ setInterval(() => {
 setInterval(() => {
     countdown -= 1;
     if (countdown <= 0) {
+        for (let i = 0; i<10; i++) {
+            setTimeout(() => {createGoldenOil();}, 500);
+        }
         countdown = 30;
     }
-    document.getElementById('nav-jizdy').innerText = `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}  `;
+    document.getElementById('nav-jizdy').innerText = `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
     }, 1000);
+
+
+setInterval(() => {
+//    createGoldenOil();
+}, Math.random()*5000);

@@ -12,27 +12,56 @@
 
 <nav class="overflow" id="nav-jizdy">Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes</nav>
 <body>
-    <div id="column-one">
-      <h1>Diddy.<br>Simulator</h1>
-      <img id="diddy" src="assets/diddy.jpeg" alt="Diddy">
-      <button id="oil_button" onclick="getOil()">Baby Oil <span id="oil-per-click">(+1)</span></button>
-      <div id="stats">
-        <h2>Stats</h2>
-        <p>Oil per click: <span class="red" id="opc-value">1</span></p>
-        <p>Oil grabbers: <span class="red" id="grabber-count">0</span></p>
-        <p>Diddy parties: <span class="red" id="party-count">0</span></p>
-      </div>
-    </div>
-    
-    <div class="vertical-line"></div>
-    <div id="column-two">
-    <h1 class="italic"><span class="unitalic red" id="oil">0</span> oil.</h1>
-      <div id="shop">
-        <button class="shop-button" onclick="buyGrabber()">Buy oil grabber <span id="grabber-cost">(-10 oil)</span></button>
-        <button class="shop-button" onclick="upgradeClicks()">Upgrade oil clicks <span id="upgrade-clicks-cost">(-50 oil)</span></button>
-        <button class="shop-button" onclick="hostParty()">Host a party <span id="party-cost">(-100 oil)</span></button>
+  <div id="oil-block"></div>
+  <div class="column" id="party-column">
+    <h1 class="underline center">PARTY</h1>
+  </div>
+
+  <div class="vertical-line"></div>
+
+  <div class="column" id="main-column">
+    <h1 class="underline center">DIDDY.<br>SIMULATOR</h1>
+    <img class="center" id="diddy" onclick="getOil()" src="assets/diddy.jpeg" alt="where is diddy 💔">
+    <p class="italic"><span class="red unitalic" id="oil">0</span> oil.</p>
+  </div>
+
+  <div class="vertical-line"></div>
+
+  <div class="column" id="shop-column">
+    <h1 class="underline center">SHOP</h1>
+
+    <div class="shop-item">
+      <div class="item-info">GET FREAKY<br><span id="freaky-info">Boost clicks. 10 oil.</span><span id="freaky-count">x0</span></div> 
+      <div class="buy-buttons">
+        <button class="buy-button" onclick="buyItem('freaky')">1x</button>
+        <button class="buy-button">max</button>
       </div>
     </div>
 
+    <div class="shop-item">
+      <div class="item-info">OIL UP<br><span id="oiling-info">Automatic oil. 50 oil.</span><span id="oiling-count">x0</span></div> 
+      <div class="buy-buttons">
+        <button class="buy-button" onclick="buyItem('oiling')">1x</button>
+        <button class="buy-button">max</button>
+      </div>
+    </div>    
+    
+    <div class="shop-item">
+      <div class="item-info">BALKAN MANGOS<br><span id="mango-info">Faster oiling. 100 oil.</span><span id="mango-count">x0</span></div> 
+      <div class="buy-buttons">
+        <button class="buy-button" onclick="buyItem('mango')">1x</button>
+        <button class="buy-button">max</button>
+      </div>
+    </div>
+
+        <div class="shop-item">
+      <div class="item-info">ILLEGAL THINGS<br><span id="illegal-info">Idk drugs 500 oil.</span><span id="illegal-count">x0</span></div> 
+      <div class="buy-buttons">
+        <button class="buy-button" onclick="buyItem('illegal')">1x</button>
+        <button class="buy-button">max</button>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

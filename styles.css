@@ -14,7 +14,7 @@
 
 * {
     font-family: 'Recoleta';
-    cursor: url('/assets/cursor.png'), auto;
+    cursor: url('/assets/cursor.png') 13 13, auto;
 }
 
 body {
@@ -38,36 +38,68 @@ nav {
 h1 {
     margin: 0;
     padding: 0;
-    font-size: 5rem;
+    font-size: 5vw;
 }
 
-h2 {
-    margin: 0;
-    padding: 0;
-    font-size: 3rem;
+p {
+    font-size: 2vw;
 }
 
-#column-one {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
-
-#column-two {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
-
-#oil_button {
-    margin-top: 2.5%;
-    width: 80%;
-    height: 100%;
+#oil {
+    margin-left: 2%;
 }
 
 #diddy {
-    margin-top: 2.5%;
+    width: 90%;
+    align-self: center;
+    border: 1px black solid;
+    transition: 0.5s;
+}
+
+#diddy:hover {
+    border: 3px red solid;
+    transition: 0.5s;
+}
+
+.column {
+    width: 33%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-item {
+    width: 80%;
+    margin: 10px 0px 10px 0px;
+    padding: 0% 5%;
+    border: 1px black solid;
+    align-self: center;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
     width: 50%;
+}
+
+.buy-buttons {
+    padding: 5% 0%;
+    display: flex;
+    flex-direction: column;
+}
+
+.buy-button {
+    width: 200%;
+    border-radius: 50px;
 }
 
 .italic {
@@ -78,14 +110,20 @@ h2 {
     font-style: normal;
 }
 
-.red {
-    color: red;
+.underline {
+    text-decoration:underline;
 }
 
-.shop-button {
-    width: 15%;
-    height: 300%;
-    border-radius: 10%;
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.red {
+    color: red;
 }
 
 button:hover {
@@ -94,11 +132,7 @@ button:hover {
 }
 
 .vertical-line {
-    border-left: 1px solid black;
-    height: 100%;
-    position: absolute;
-    left: 48%;
-    top: 0;
+    border-left: 3px solid black;
 }
 
 .overflow {
