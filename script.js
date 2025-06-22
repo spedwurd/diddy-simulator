@@ -39,19 +39,22 @@ function playAudio() {
     audio.play();
 }
 
+function addImage() {
+    var c = document.getElementById("oil-block");
+    var ctx = c.getContext("2d");
+    new_oil = document.createElement('img');
+    new_oil.setAttribute('src', `/assets/baby-oil.png`);
+    console.log(c.width);
+    ctx.drawImage(new_oil, Math.random()*(c.width-new_oil.width), Math.random()*(c.height-new_oil.height), new_oil.width*0.1, new_oil.height*0.1);
+}
+
 function updateOil() {
     oil_count = document.getElementById('oil');
     oil_count.innerText = baby_oil;
     document.getElementById('total_oil').innerText = total_oil;
     Object.assign(oil_count.style, {color: 'green'});
     setTimeout(() => {Object.assign(oil_count.style, {color: 'red'});}, 100);
-
-    var c = document.getElementById("oil-block");
-    var ctx = c.getContext("2d");
-    new_oil = document.createElement('img');
-    new_oil.setAttribute('src', '/assets/baby-oil.png');
-    console.log(c.width);
-    ctx.drawImage(new_oil, Math.random()*(c.width-new_oil.width), Math.random()*(c.height-new_oil.height), new_oil.width*0.1, new_oil.height*0.1);
+    addImage('baby-oil')
 }
 
 async function getOil() {
@@ -96,7 +99,7 @@ function goldenOil(ts) {
 function createGoldenOil() {
     new_golden_oil = document.createElement('img');
     new_golden_oil.setAttribute('src', '/assets/golden-oil.png'), new_golden_oil.setAttribute('onclick', 'goldenOil(this)'), Object.assign(new_golden_oil.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'})
-    document.getElementById('oil-block').appendChild(new_golden_oil);
+    document.getElementById('body').appendChild(new_golden_oil);
 }
 
 function oilInterval() {
