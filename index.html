@@ -12,7 +12,7 @@
 
 <nav class="overflow" id="nav-jizdy">Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes in ___ Jizdy comes</nav>
 <body>
-  <div id="oil-block"></div>
+  <canvas id="oil-block"></canvas>
   <div class="column" id="party-column">
     <h1 class="underline center">PARTY</h1>
   </div>
@@ -22,7 +22,8 @@
   <div class="column" id="main-column">
     <h1 class="underline center">DIDDY.<br>SIMULATOR</h1>
     <img class="center" id="diddy" onclick="getOil()" src="assets/diddy.jpeg" alt="where is diddy 💔">
-    <p class="italic"><span class="red unitalic" id="oil">0</span> oil.</p>
+    <p class="italic no-margin"><span class="red unitalic" id="oil">0</span> oil.</p>
+    <p class="italic no-margin" style="font-size: 1vw;"><span class="red unitalic" id="total_oil">0</span> total oil.</p>
   </div>
 
   <div class="vertical-line"></div>
@@ -47,7 +48,7 @@
     </div>    
     
     <div class="shop-item">
-      <div class="item-info">BALKAN MANGOS<br><span id="mango-info">Faster oiling. 100 oil.</span><span id="mango-count">x0</span></div> 
+      <div class="item-info">BALKAN MANGOS<br><span id="mango-info">Better oiling. 100 oil.</span><span id="mango-count">x0</span></div> 
       <div class="buy-buttons">
         <button class="buy-button" onclick="buyItem('mango')">1x</button>
         <button class="buy-button">max</button>
@@ -55,7 +56,7 @@
     </div>
 
         <div class="shop-item">
-      <div class="item-info">ILLEGAL THINGS<br><span id="illegal-info">Idk drugs 500 oil.</span><span id="illegal-count">x0</span></div> 
+      <div class="item-info">ILLEGAL THINGS<br><span id="illegal-info">Faster oiling. 500 oil.</span><span id="illegal-count">x0</span></div> 
       <div class="buy-buttons">
         <button class="buy-button" onclick="buyItem('illegal')">1x</button>
         <button class="buy-button">max</button>

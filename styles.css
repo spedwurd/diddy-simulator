@@ -45,8 +45,20 @@ p {
     font-size: 2vw;
 }
 
-#oil {
+#oil, #total_oil {
     margin-left: 2%;
+}
+
+#oil-block {
+    width: 100%;
+    height: 100%;
+    z-index: -1000;
+    position: absolute;
+    border: 1px solid black;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 #diddy {
@@ -80,6 +92,7 @@ p {
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
+    background-color: white;
 }
 
 .item-info {

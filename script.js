@@ -1,6 +1,8 @@
 let baby_oil = 0;
-let oil_grabber = 0;
-let grabber_rate = 1;
+let total_oil = 0
+let oilers = 0;
+let oiling_rate = 1;
+let oiling_speed = 1000;
 let party = 0;
 let oil_per_click = 1000;
 let freaky_cost = 10;
@@ -9,10 +11,26 @@ let mango_cost = 100;
 let illegal_cost = 500;
 let countdown = 5;
 
-let items = {freaky: {cost: 10, amount: 0, desc: 'Boost clicks.'}, 
-oiling: {cost: 50, amount: 0, desc: 'Automatic oil.'}, 
-mango: {cost: 100, amount: 0, desc: 'Faster oiling.'}, 
-illegal: {cost: 500, amount: 0, desc: 'Idk drugs'}};
+// canvas setting
+const dpr = window.devicePixelRatio || 1;
+const canvas = document.getElementById('oil-block');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth*dpr;
+canvas.height =window.innerHeight*dpr;
+
+console.log(dpr)
+console.log(canvas.width);
+console.log(canvas.height);
+
+ctx.scale(dpr, dpr);
+
+
+
+let items = {freaky: {cost: 10, amount: 0, desc: 'Boost clicks.', cost_rate: 1.1}, 
+oiling: {cost: 50, amount: 0, desc: 'Automatic oil.', cost_rate: 1.5}, 
+mango: {cost: 100, amount: 0, desc: 'Better oiling.', cost_rate: 2}, 
+illegal: {cost: 500, amount: 0, desc: 'Faster oiling.', cost_rate: 5}};
 
 document.getElementById('nav-jizdy').innerText =  `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
 
@@ -24,73 +42,53 @@ function playAudio() {
 function updateOil() {
     oil_count = document.getElementById('oil');
     oil_count.innerText = baby_oil;
+    document.getElementById('total_oil').innerText = total_oil;
     Object.assign(oil_count.style, {color: 'green'});
     setTimeout(() => {Object.assign(oil_count.style, {color: 'red'});}, 100);
-    new_oil = document.createElement('img')
-    new_oil.setAttribute('src', '/assets/baby-oil.png'), Object.assign(new_oil.style, { height: '5vh', width: '5vw', position: 'absolute', zIndex: '-1000', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'});
-    document.getElementById('oil-block').appendChild(new_oil)
+
+    var c = document.getElementById("oil-block");
+    var ctx = c.getContext("2d");
+    new_oil = document.createElement('img');
+    new_oil.setAttribute('src', '/assets/baby-oil.png');
+    console.log(c.width);
+    ctx.drawImage(new_oil, Math.random()*(c.width-new_oil.width), Math.random()*(c.height-new_oil.height), new_oil.width*0.1, new_oil.height*0.1);
 }
 
 async function getOil() {
     playAudio()
     console.log('hi')
     baby_oil += oil_per_click;
+    total_oil += oil_per_click;
     updateOil();
 }
 
 
 function buyItem(item) {
     console.log(items[item]['cost']);
+    console.log(items[item]['cost_rate'])
     if (items[item]['cost'] <= baby_oil) {
         baby_oil -= items[item]['cost'];
-        items[item]['cost'] = Math.floor(items[item]['cost'] * 1.1);
+        items[item]['cost'] = Math.floor(items[item]['cost'] * items[item]['cost_rate']);
         items[item]['amount'] += 1;
         document.getElementById(`${item}-info`).innerText = `${items[item]['desc']} ${items[item]['cost']} oil.`;
         document.getElementById(`${item}-count`).innerText = `${items[item]['amount']}x`;
         updateOil();
-    }
-}
 
-function upgradeClicks() {
-    if (baby_oil >= upgrade_cost) {
-        playAudio();
-        baby_oil -= upgrade_cost;
-        upgrade_cost = Math.floor(upgrade_cost * 1.1);
-        oil_per_click += 1;
-        document.getElementById('upgrade-clicks-cost').innerText = `(-${upgrade_cost} oil)`;
-        document.getElementById('oil-per-click').innerText = `(+${oil_per_click})`;
-        document.getElementById('opc-value').innerText = `${oil_per_click}`;
-        updateOil();
+        if (item == 'freaky') {
+            oil_per_click += 1;
+        } else if (item == 'oiling') {
+            oilers += 1;
+        } else if (item == 'mango') {
+            oiling_rate += 1;
+        } else if (item == 'illegal') {
+            oiling_speed -= 50;
         }
 }
-
-function buyGrabber() {
-    if (baby_oil >= grabber_cost) {
-        playAudio();
-        baby_oil -= grabber_cost;
-        oil_grabber += 1;
-        grabber_cost = Math.floor(grabber_cost * 1.1);
-        document.getElementById('grabber-cost').innerText = `(-${grabber_cost} oil)`;
-        document.getElementById('grabber-count').innerText = `${oil_grabber}`;
-        updateOil();
-    }
-}
-
-function hostParty() {
-    if (baby_oil >= party_cost) {
-        playAudio();
-        baby_oil -= party_cost;
-        party += 1;
-        party_cost = Math.floor(party_cost * 1.1);
-        document.getElementById('party-cost').innerText = `(-${party_cost} oil)`;
-        document.getElementById('party-count').innerText = `${party}`;
-        grabber_rate += 1;
-        updateOil();
-    }
 }
 
 function goldenOil(ts) {
-    baby_oil *= 2;
+    baby_oil = Math.floor(baby_oil*1.1);
+    total_oil += Math.floor(total_oil*0.1);
     updateOil();
     ts.remove();
 }
@@ -98,31 +96,35 @@ function goldenOil(ts) {
 function createGoldenOil() {
     new_golden_oil = document.createElement('img');
     new_golden_oil.setAttribute('src', '/assets/golden-oil.png'), new_golden_oil.setAttribute('onclick', 'goldenOil(this)'), Object.assign(new_golden_oil.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'})
-   // document.getElementById('oil-block').appendChild(new_golden_oil);
+    document.getElementById('oil-block').appendChild(new_golden_oil);
 }
 
-
-setInterval(() => {
-    if (oil_grabber > 0) {
-        baby_oil += grabber_rate * oil_grabber;
-        for (let i = 0; i < oil_grabber*grabber_rate; i++) {
-            updateOil();
+function oilInterval() {
+    setTimeout(() => {
+    if (oilers > 0) { 
+        baby_oil += oiling_rate * oilers;
+        total_oil += oiling_rate * oilers;
+        for (let i = 0; i < oiling_rate*oilers; i++) { 
+            updateOil(); 
         }
     }
-}, 1000);
+    oilInterval()}, oiling_speed);
+}
+
+oilInterval();
 
 setInterval(() => {
     countdown -= 1;
     if (countdown <= 0) {
-        for (let i = 0; i<10; i++) {
-            setTimeout(() => {createGoldenOil();}, 500);
+        countdown = Math.floor(Math.random() * 20 + 30);
+        for (let i = 0; i<Math.floor(Math.random()*5+5); i++) {
+            setTimeout(() => {createGoldenOil();}, 250*i);
         }
-        countdown = 30;
     }
     document.getElementById('nav-jizdy').innerText = `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
     }, 1000);
 
 
 setInterval(() => {
-//    createGoldenOil();
-}, Math.random()*5000);
+    createGoldenOil();
+}, Math.random()*3000 + 2000);
