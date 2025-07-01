@@ -4,14 +4,17 @@ let oilers = 0;
 let oiling_rate = 1;
 let oiling_speed = 1000;
 let party = 0;
-let oil_per_click = 1000;
+let oil_per_click = 1;
 let freaky_cost = 10;
 let oiling_cost = 50;
 let mango_cost = 100;
 let illegal_cost = 500;
 let countdown = 5;
 
-// canvas setting
+let quantity = 1;
+let cost = 0;
+
+// canvas settings for background oil
 const dpr = window.devicePixelRatio || 1;
 const canvas = document.getElementById('oil-block');
 const ctx = canvas.getContext('2d');
@@ -65,29 +68,41 @@ async function getOil() {
     updateOil();
 }
 
+function buyItem(item, quant) {
+    if (items[item]['cost'] > baby_oil) { // too broke
+        return;
+    }
 
-function buyItem(item) {
-    console.log(items[item]['cost']);
-    console.log(items[item]['cost_rate'])
-    if (items[item]['cost'] <= baby_oil) {
-        baby_oil -= items[item]['cost'];
-        items[item]['cost'] = Math.floor(items[item]['cost'] * items[item]['cost_rate']);
-        items[item]['amount'] += 1;
-        document.getElementById(`${item}-info`).innerText = `${items[item]['desc']} ${items[item]['cost']} oil.`;
-        document.getElementById(`${item}-count`).innerText = `${items[item]['amount']}x`;
-        updateOil();
 
-        if (item == 'freaky') {
-            oil_per_click += 1;
-        } else if (item == 'oiling') {
-            oilers += 1;
-        } else if (item == 'mango') {
-            oiling_rate += 1;
-        } else if (item == 'illegal') {
-            oiling_speed -= 50;
+    cost = items[item]['cost'];
+    quantity = 1;
+    if (quant=='max') {
+        while (cost*items[item]['cost_rate'] < baby_oil) { // find max possible purchase
+            quantity += 1;
+            cost *= items[item]['cost_rate'];
         }
+    }
+
+    // update variables
+    baby_oil = Math.floor(baby_oil - cost); 
+    items[item]['cost'] = Math.floor(cost * items[item]['cost_rate']);
+    items[item]['amount'] += quantity;
+    document.getElementById(`${item}-info`).innerText = `${items[item]['desc']} ${items[item]['cost']} oil.`;
+    document.getElementById(`${item}-count`).innerText = `${items[item]['amount']}x`;
+    updateOil();
+
+    // item specific changes
+    if (item == 'freaky') {
+        oil_per_click += quantity;
+    } else if (item == 'oiling') {
+        oilers += quantity;
+    } else if (item == 'mango') {
+        oiling_rate += quantity;
+    } else if (item == 'illegal') {
+        oiling_speed -= quantity*50;
+    }
 }
-}
+
 
 function goldenOil(ts) {
     baby_oil = Math.floor(baby_oil*1.1);
@@ -98,7 +113,7 @@ function goldenOil(ts) {
 
 function createGoldenOil() {
     new_golden_oil = document.createElement('img');
-    new_golden_oil.setAttribute('src', '/assets/golden-oil.png'), new_golden_oil.setAttribute('onclick', 'goldenOil(this)'), Object.assign(new_golden_oil.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 100)}%`, top: `${Math.floor(Math.random() * 100)}%`, animation: 'fadeIn 1s'})
+    new_golden_oil.setAttribute('src', '/assets/golden-oil.png'), new_golden_oil.setAttribute('onclick', 'goldenOil(this)'), Object.assign(new_golden_oil.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 90)}%`, top: `${Math.floor(Math.random() * 90)}%`, animation: 'fadeIn 1s'})
     document.getElementById('body').appendChild(new_golden_oil);
 }
 
@@ -115,6 +130,7 @@ function oilInterval() {
 }
 
 oilInterval();
+
 
 setInterval(() => {
     countdown -= 1;

@@ -33,6 +33,7 @@ nav {
     color: red;
     position: absolute;
     top: 0;
+    overflow: hidden;
 }
 
 h1 {
@@ -55,6 +56,16 @@ p {
     z-index: -1000;
     position: absolute;
     border: 1px solid black;
+}
+
+#friends-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.friend {
+    width: 10%;
+    height: 10%;
 }
 
 .no-margin {
@@ -93,6 +104,17 @@ p {
     flex-direction: row;
     justify-content:space-evenly;
     background-color: white;
+}
+
+#quant-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly
+}
+
+.quant {
+    border: 1.5px black solid;
+    width: 30%;
 }
 
 .item-info {
