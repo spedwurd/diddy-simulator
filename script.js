@@ -105,8 +105,8 @@ function buyItem(item, quant) {
 
 
 function goldenOil(ts) {
-    baby_oil = Math.floor(baby_oil*1.1);
-    total_oil += Math.floor(total_oil*0.1);
+    baby_oil = Math.floor(baby_oil*1.5);
+    total_oil += Math.floor(total_oil*0.5);
     updateOil();
     ts.remove();
 }

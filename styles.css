@@ -106,15 +106,9 @@ p {
     background-color: white;
 }
 
-#quant-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly
-}
-
-.quant {
-    border: 1.5px black solid;
+.friend {
     width: 30%;
+    height: 25%;
 }
 
 .item-info {
