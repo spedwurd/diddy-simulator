@@ -35,6 +35,8 @@ oiling: {cost: 50, amount: 0, desc: 'Automatic oil.', cost_rate: 1.5},
 mango: {cost: 100, amount: 0, desc: 'Better oiling.', cost_rate: 2}, 
 illegal: {cost: 500, amount: 0, desc: 'Faster oiling.', cost_rate: 5}};
 
+let friends = {bieber: 1000, hawking: 2500, leo: 5000, jayz: 10000, cosby: 25000, ye: 50000, lebron: 100000, mrbeast: 250000}
+
 document.getElementById('nav-jizdy').innerText =  `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
 
 function playAudio() {
@@ -72,8 +74,6 @@ function buyItem(item, quant) {
     if (items[item]['cost'] > baby_oil) { // too broke
         return;
     }
-
-
     cost = items[item]['cost'];
     quantity = 1;
     if (quant=='max') {
@@ -82,7 +82,6 @@ function buyItem(item, quant) {
             cost *= items[item]['cost_rate'];
         }
     }
-
     // update variables
     baby_oil = Math.floor(baby_oil - cost); 
     items[item]['cost'] = Math.floor(cost * items[item]['cost_rate']);
@@ -100,6 +99,39 @@ function buyItem(item, quant) {
         oiling_rate += quantity;
     } else if (item == 'illegal') {
         oiling_speed -= quantity*50;
+    }
+}
+
+function getFriend(friend) { // HIGHLY UNFINISHED
+    if (friends[friend] <= baby_oil) {
+        baby_oil -= friends[friend];
+        party = document.getElementById('party-column');
+        friend_image = document.getElementById(friend);
+
+        friend_image.remove();
+        friend_image = document.createElement('img');
+        friend_image.setAttribute('src', `/assets/friends/${friend}.webp`), Object.assign(friend_image.style, {height: '15vh', width: '15vw', position: 'absolute', left: `${Math.floor(Math.random() * 90)}%`, top: `${Math.floor(Math.random() * 90)}%`, animation: 'fadeIn 1s'});
+        party.appendChild(friend_image)
+
+
+        if (friend=='bieber') {
+            babyShit();
+        } else if (friend=='hawking') {
+            hawkingShit();
+        } else if (friend=='leo') {
+            leoShit();
+        } else if (friend=='jayz') {
+            jayzShit();
+        } else if (friend=='cosby') {
+            cosbyShit();
+        } else if (friend=='ye') {
+            yeShit();
+        } else if (friend=='lebron') {
+            lebronShit();
+        } else if (friend=='mrbeast') {
+            mrbeastShit();
+        }
+        updateOil();
     }
 }
 

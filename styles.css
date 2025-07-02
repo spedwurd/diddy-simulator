@@ -25,6 +25,7 @@ body {
     background-color: #f0f0f0;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 nav {
@@ -61,13 +62,8 @@ p {
 #friends-row {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
-
-.friend {
-    width: 10%;
-    height: 10%;
-}
-
 .no-margin {
     margin: 0;
 }
@@ -105,6 +101,8 @@ p {
     justify-content:space-evenly;
     background-color: white;
 }
+
+
 
 .friend {
     width: 30%;
