@@ -1,5 +1,5 @@
-let baby_oil = 0;
-let total_oil = 0
+let baby_oil = 100000000;
+let total_oil = baby_oil;
 let oilers = 0;
 let oiling_rate = 1;
 let oiling_speed = 1000;
@@ -13,6 +13,8 @@ let countdown = 5;
 
 let quantity = 1;
 let cost = 0;
+
+updateOil();
 
 // canvas settings for background oil
 const dpr = window.devicePixelRatio || 1;
@@ -35,7 +37,15 @@ oiling: {cost: 50, amount: 0, desc: 'Automatic oil.', cost_rate: 1.5},
 mango: {cost: 100, amount: 0, desc: 'Better oiling.', cost_rate: 2}, 
 illegal: {cost: 500, amount: 0, desc: 'Faster oiling.', cost_rate: 5}};
 
-let friends = {bieber: 1000, hawking: 2500, leo: 5000, jayz: 10000, cosby: 25000, ye: 50000, lebron: 100000, mrbeast: 250000}
+let friends = {bieber: {price: 1000, info: "babys pop up on the screen"}, 
+hawking: {price: 2500, info: "he deadass js rolls around the screen"}, 
+leo: {price: 5000, info: "boosts ur oil production by 25"}, 
+jayz: {price: 10000, info: "👅 this guy does absolutely nothing 🥹"}, 
+cosby: {price: 25000, info: "idk ts guy is an actual dickhead lmao"}, 
+ye: {price: 50000, info: "sometimes kanyes cousin will show up -- click him for oil"}, 
+mrbeast: {price: 100000, info: "boosts oil production by 500x 🥹 this will break the website"},
+epstein: {price: 250000, info: "67"}, 
+lebron: {price: 500000, info: "earn a gazillion dollars 🤑"}}
 
 document.getElementById('nav-jizdy').innerText =  `Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown} Jizdy comes in ${countdown}`;
 
@@ -103,8 +113,9 @@ function buyItem(item, quant) {
 }
 
 function getFriend(friend) { // HIGHLY UNFINISHED
-    if (friends[friend] <= baby_oil) {
-        baby_oil -= friends[friend];
+    if (friends[friend]["price"] <= baby_oil) {
+        baby_oil -= friends[friend]["price"];
+        updateOil();
         party = document.getElementById('party-column');
         friend_image = document.getElementById(friend);
 
@@ -119,7 +130,7 @@ function getFriend(friend) { // HIGHLY UNFINISHED
         } else if (friend=='hawking') {
             hawkingShit();
         } else if (friend=='leo') {
-            leoShit();
+            oiling_rate += 25;
         } else if (friend=='jayz') {
             jayzShit();
         } else if (friend=='cosby') {
@@ -127,12 +138,17 @@ function getFriend(friend) { // HIGHLY UNFINISHED
         } else if (friend=='ye') {
             yeShit();
         } else if (friend=='lebron') {
-            lebronShit();
+            baby_oil += 1000000000000000;
+            updateOil();
         } else if (friend=='mrbeast') {
-            mrbeastShit();
+            oiling_rate *= 500;
         }
-        updateOil();
     }
+}
+
+function showInfo(friend) {
+    info_display = document.getElementById('friend-info');
+    info_display.innerText = `${friend}: ${friends[friend]["price"]} oil.\n\n${friends[friend]["info"]}`;
 }
 
 

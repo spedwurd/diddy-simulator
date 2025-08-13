@@ -47,8 +47,8 @@ p {
     font-size: 2vw;
 }
 
-#oil, #total_oil {
-    margin-left: 2%;
+#main-column {
+    margin-left: 1%;
 }
 
 #oil-block {
@@ -105,8 +105,8 @@ p {
 
 
 .friend {
-    width: 30%;
-    height: 25%;
+    width: 150px;
+    height: 150px;
 }
 
 .item-info {
